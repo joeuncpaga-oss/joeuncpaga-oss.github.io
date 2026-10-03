@@ -108,6 +108,27 @@ footer{border-top:1px solid var(--line);background:var(--tint)}
 .fwrap .biz{font-size:13px;margin-top:6px}
 .fwrap .dis{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
  font-size:13px;line-height:1.7;max-width:46em}
+/* 게시판. 표가 아니라 목록으로 짠다 — 표로 짜면 폰에서 칸이 뭉개지고,
+   글 하나가 한 줄이 아니라 한 덩어리로 읽히는 쪽이 제목을 훑기 좋다.
+   제목 전체가 링크라 손가락으로 누르는 자리가 넓다. */
+h2.cat{font-size:15px;color:var(--mute);letter-spacing:.02em;
+ margin:32px 0 0;padding-bottom:8px;border-bottom:1px solid var(--line)}
+ul.board{list-style:none;margin:0;padding:0}
+ul.board li{border-bottom:1px solid var(--line)}
+ul.board a{display:block;padding:16px 2px;text-decoration:none;color:inherit}
+ul.board a:hover{background:var(--tint)}
+ul.board a:hover .t{text-decoration:underline}
+ul.board .t{display:block;font-weight:700;font-size:17px;color:var(--ink);
+ margin-bottom:3px}
+ul.board .d{display:block;color:var(--mute);font-size:14.5px;
+ margin-bottom:6px;max-width:44em}
+ul.board .m{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+ font-size:13px;color:var(--mute)}
+ul.board .m b{font-weight:600;color:var(--navy);background:var(--tint);
+ padding:2px 8px;border-radius:4px}
+p.meta{color:var(--mute);font-size:14px;margin:0 0 22px}
+p.back{margin:28px 0 10px;font-size:14px}
+p.back a{display:inline-block;padding:8px 0}
 @media(max-width:860px){.hero{grid-template-columns:1fr;gap:28px}}
 @media(max-width:720px){
  header{position:static}
@@ -123,4 +144,4 @@ footer{border-top:1px solid var(--line);background:var(--tint)}
  table{font-size:14.5px}
  th,td{padding:10px 8px}
 }
-</style></head><body><a href='#main' class='skip'>본문으로</a><header><div class='hwrap'><a class='brand' href='/'>회계법인 조은<small>공공회계본부</small></a><nav><a href='/' class=''>소개</a><a href='/work' class=''>업무 안내</a><a href='/record' class=''>수행실적</a><a href='/lecture' class=''>강의실</a><a href='/data' class=''>자료실</a><a href='/ask' class='on'>질문하기</a><a href='/contact' class=''>연락</a></nav></div></header><main id='main'><h1>질문하기</h1><p class='lead'>회원가입 없이 질문하실 수 있습니다. 답변이 달리면 적어 주신 메일로 알려 드리고, 영업일 기준 2~3일 안에 회계사가 직접 답해 드립니다. 적어 주신 내용은 답변하는 데만 쓰고, 영업 목적으로 연락드리지 않습니다.</p><div class='empty'><p><b>질문 받는 곳을 준비하고 있습니다.</b> 그 전에는 메일로 보내 주시면 똑같이 답해 드립니다.</p><p><a href='mailto:joeuncpa.ga@gmail.com'>메일로 질문하기</a></p></div></main><footer><div class='fwrap'><div class='nm'>회계법인 조은 공공회계본부</div><div><a href='mailto:joeuncpa.ga@gmail.com'>joeuncpa.ga@gmail.com</a></div><div class='biz'>대표자 · 주소 · 사업자등록번호 · 전화번호를 여기에 넣습니다</div><div class='dis'>이 사이트의 자료는 일반적인 안내이며, 개별 사안의 판단을 대신하지 않습니다. 구체적인 건은 회계사와 직접 상의하시기 바랍니다.<br>© 2026 회계법인 조은</div></div></footer></body></html>
+</style></head><body><a href='#main' class='skip'>본문으로</a><header><div class='hwrap'><a class='brand' href='/'>회계법인 조은<small>공공회계본부</small></a><nav><a href='/' class=''>소개</a><a href='/work' class=''>업무 안내</a><a href='/record' class=''>수행실적</a><a href='/lecture' class=''>강의실</a><a href='/data' class=''>자료실</a><a href='/ask' class='on'>질문하기</a><a href='/contact' class=''>연락</a></nav></div></header><main id='main'><h1>질문하기</h1><p class='lead'>회원가입 없이 질문하실 수 있습니다. 답변이 달리면 적어 주신 메일로 알려 드리고, 영업일 기준 2~3일 안에 회계사가 직접 답해 드립니다. 적어 주신 내용은 답변하는 데만 쓰고, 영업 목적으로 연락드리지 않습니다.</p><div class='offer'><h3>막힌 자리를 적어 보내주세요</h3><p>회원가입 없이 보내실 수 있고, 기관명은 안 적으셔도 됩니다. 영업일 2~3일 안에 회계사가 직접 답해 드립니다.</p><a class='btn main' href='mailto:joeuncpa.ga@gmail.com'>질문 보내기</a></div></main><footer><div class='fwrap'><div class='nm'>회계법인 조은 공공회계본부</div><div><a href='mailto:joeuncpa.ga@gmail.com'>joeuncpa.ga@gmail.com</a></div><div class='biz'>대표자 · 주소 · 사업자등록번호 · 전화번호를 여기에 넣습니다</div><div class='dis'>이 사이트의 자료는 일반적인 안내이며, 개별 사안의 판단을 대신하지 않습니다. 구체적인 건은 회계사와 직접 상의하시기 바랍니다.<br>© 2026 회계법인 조은</div></div></footer></body></html>
