@@ -3,11 +3,19 @@
 :root{--ink:#17202a;--mute:#5b6572;--line:#dde3ea;--line-strong:#848e9c;
  --navy:#1f3864;--tint:#f4f7fb;--bg:#fff}
 /* 한글은 어절 단위로 끊어야 읽힌다. keep-all 없이 두면 「회원가 / 입 없이」
-   처럼 갈라지고, 그게 첫 화면에서 가장 먼저 눈에 띈다. */
+   처럼 갈라지고, 그게 첫 화면에서 가장 먼저 눈에 띈다. 다만 keep-all만
+   두면 긴 낱말이 좁은 칸을 뚫고 나가므로, 넘칠 때만 끊어주는
+   overflow-wrap을 짝으로 둔다. */
 body{margin:0;background:var(--bg);color:var(--ink);
  font:16px/1.75 'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
  word-break:keep-all;overflow-wrap:anywhere;-webkit-text-size-adjust:100%}
-a{color:var(--navy)}
+/* 본문 링크는 밑줄로도 구분한다. 색만으로 구분하면 색각 이상인 분과
+   흑백 출력에서 링크가 사라진다(WCAG 1.4.1). 남색 링크와 먹색 본문은
+   서로 1.4:1 밖에 차이가 안 나서 색만으로는 실제로 잘 안 보인다.
+   메뉴와 버튼은 배경·테두리로 이미 구분되므로 밑줄을 뺀다. */
+a{color:var(--navy);text-decoration:underline;text-underline-offset:3px;
+ text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
 :focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:12px;top:12px;background:#fff;padding:8px 12px;
@@ -20,8 +28,8 @@ header{border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff
  letter-spacing:-.02em;line-height:1.3}
 .brand small{display:block;font-size:11.5px;font-weight:500;color:var(--mute);
  letter-spacing:0}
-nav{display:flex;gap:4px 6px;flex-wrap:wrap;margin-left:auto}
-nav a{padding:6px 11px;border-radius:6px;color:var(--mute);text-decoration:none;
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+nav a{padding:9px 11px;border-radius:6px;color:var(--mute);text-decoration:none;
  font-size:14.5px;white-space:nowrap}
 nav a:hover{background:var(--tint);color:var(--ink)}
 nav a.on{color:var(--navy);font-weight:700;background:var(--tint)}
@@ -29,9 +37,13 @@ main{max-width:1020px;margin:0 auto;padding:0 20px 72px;scroll-margin-top:90px}
 .hero{padding:60px 0 44px;border-bottom:1px solid var(--line);
  display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;
  align-items:start}
-.kicker{color:var(--navy);font-size:13.5px;font-weight:700;letter-spacing:.04em;
+/* 자간은 한글에 라틴 대문자 관습을 그대로 옮기면 낱말이 흩어져 보인다.
+   .04em도 한글에는 넓은 편이라 .02em으로 줄인다. */
+.kicker{color:var(--navy);font-size:13.5px;font-weight:700;letter-spacing:.02em;
  margin:0 0 10px}
-h1{font-size:34px;line-height:1.35;margin:0 0 16px;letter-spacing:-.025em;
+/* 한글은 라틴 문자보다 글자틀을 꽉 채워서, 같은 값이라도 더 빡빡해 보인다.
+   자간 -.025em은 「막히는」·「있습니다」처럼 받침 많은 음절을 밀착시킨다. */
+h1{font-size:34px;line-height:1.4;margin:0 0 16px;letter-spacing:-.02em;
  text-wrap:balance}
 main>h1{font-size:28px;margin:44px 0 6px}
 .hero p.sub{font-size:18px;color:var(--mute);margin:0 0 12px;max-width:34em}
@@ -49,15 +61,20 @@ main>h1{font-size:28px;margin:44px 0 6px}
 .facts dt{color:var(--mute);font-size:13px;margin-top:14px}
 .facts dt:first-of-type{margin-top:0}
 .facts dd{margin:2px 0 0;font-weight:600}
-.facts .todo{color:var(--mute);font-weight:400;font-style:italic}
+/* **한글에는 이탤릭 자형이 없다.** 기울임을 걸면 브라우저가 글자를
+   억지로 비틀어 만들어내고, 획이 뭉개져 조판 사고처럼 보인다. 아직 안 채운
+   칸이라는 표시는 기울임 대신 점선 밑줄로 한다. */
+.facts .todo{color:var(--mute);font-weight:400;
+ border-bottom:1px dotted var(--line-strong)}
 h2{font-size:21px;margin:48px 0 6px;letter-spacing:-.02em}
-h3{font-size:17.5px;margin:30px 0 6px}
+/* 본문 16px과 1.5px 차이로는 제목으로 안 읽힌다. */
+h3{font-size:19px;margin:30px 0 6px}
 p.lead{color:var(--mute);margin:0 0 22px;max-width:36em}
 main>ul{max-width:36em}
 .cards{display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0}
 @media(min-width:880px){.cards{grid-template-columns:repeat(3,1fr)}}
 .card{border:1px solid var(--line);border-radius:10px;padding:22px}
-.card h3{margin:0 0 6px;font-size:17.5px}
+.card h3{margin:0 0 6px;font-size:19px}
 .card .l{color:var(--mute);font-size:14.5px;margin:0 0 14px}
 .card ul{margin:0 0 14px;padding-left:18px}
 .card li{margin:3px 0;font-size:15px}
@@ -84,6 +101,9 @@ th{color:var(--mute);font-weight:600;font-size:13.5px}
 footer{border-top:1px solid var(--line);background:var(--tint)}
 .fwrap{max-width:1020px;margin:0 auto;padding:32px 20px 44px;
  color:var(--mute);font-size:14px}
+/* 푸터 메일 주소는 폰에서 실제로 누르는 자리다. 글줄 높이만큼인 24px로는
+   옆 줄이 같이 눌린다. */
+.fwrap a{display:inline-block;padding:8px 0}
 .fwrap .nm{color:var(--ink);font-weight:700;margin-bottom:4px}
 .fwrap .biz{font-size:13px;margin-top:6px}
 .fwrap .dis{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
