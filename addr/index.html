@@ -41,6 +41,7 @@
     try {
       new daum.Postcode({
         width: '100%', height: '100%',
+        shorthand: false,   // 「서울」 말고 「서울특별시」 — 우리 자료가 시·도 이름을 다 적는다
         oncomplete: function (d) {
           var 지번 = d.userSelectedType === 'J';
           var 주소 = 지번 ? d.jibunAddress : (d.roadAddress || d.autoRoadAddress);
