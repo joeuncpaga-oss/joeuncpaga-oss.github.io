@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>주소 찾기 · 회계법인 조은</title>
+<!--
+  업무프로그램(work.taxpang.com)의 「주소 찾기」 창 (2026-11-01).
+  카카오 우편번호 스크립트를 업무프로그램 주소에서 돌리지 않으려고 홈페이지 쪽(다른 출처)에 둔다 —
+  브라우저는 출처가 다르면 서로의 화면·로그인에 손을 못 대게 막는다. 여기서 고른 우편번호·주소만
+  업무프로그램 창으로 보낸다(받을 곳은 아래 허용 목록뿐). 이 쪽에는 거래처 자료가 하나도 없다.
+-->
+<style>
+  html,body{margin:0;height:100%;font:14px/1.5 -apple-system,"Malgun Gothic",sans-serif;color:#1b1d21;background:#fff}
+  #wrap{position:fixed;inset:0}
+  .msg{padding:24px 20px;font-size:15px}
+  .msg b{display:block;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div id="wrap"></div>
+<script>
+  // 결과를 보낼 수 있는 곳 — 업무프로그램(과 집 PC 시험 주소)만
+  var 허용 = ['https://work.taxpang.com', 'http://127.0.0.1:8732'];
+  var 받는곳 = new URLSearchParams(location.search).get('o') || '';
+  if (허용.indexOf(받는곳) < 0) 받는곳 = '';
+  var 끝 = false;
+  function 보내기(x) { if (window.opener && 받는곳) { try { window.opener.postMessage(x, 받는곳); } catch (e) {} } }
+  function 실패() {
+    if (끝) return; 끝 = true;
+    document.body.innerHTML = "<div class='msg'><b>주소 찾기가 지금 열리지 않아요.</b>이 창을 닫고 주소를 직접 적어 주세요.</div>";
+    보내기({type: 'joeun-addr-fail'});
+  }
+  var 기다림 = setTimeout(실패, 12000);
+</script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" onerror="실패()"></script>
+<script>
+  (function () {
+    if (!(window.daum && daum.Postcode)) { 실패(); return; }
+    try {
+      new daum.Postcode({
+        width: '100%', height: '100%',
+        oncomplete: function (d) {
+          var 지번 = d.userSelectedType === 'J';
+          var 주소 = 지번 ? d.jibunAddress : (d.roadAddress || d.autoRoadAddress);
+          var 참고 = [];
+          if (!지번) {
+            if (d.bname && /[동로가]$/.test(d.bname)) 참고.push(d.bname);
+            if (d.buildingName && d.apartment === 'Y') 참고.push(d.buildingName);
+          }
+          if (참고.length) 주소 += '(' + 참고.join(', ') + ')';
+          끝 = true;
+          if (!(window.opener && 받는곳)) {
+            document.body.innerHTML = "<div class='msg'><b>" + d.zonecode + "</b></div>";
+            document.querySelector('.msg').appendChild(document.createTextNode(주소));
+            return;
+          }
+          보내기({type: 'joeun-addr', zip: d.zonecode, addr: 주소});
+          window.close();
+        }
+      }).embed(document.getElementById('wrap'));
+      clearTimeout(기다림);
+    } catch (e) { 실패(); }
+  })();
+</script>
+</body>
+</html>
