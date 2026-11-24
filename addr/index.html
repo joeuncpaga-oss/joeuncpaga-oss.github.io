@@ -22,7 +22,7 @@
 <div id="wrap"></div>
 <script>
   // 결과를 보낼 수 있는 곳 — 업무프로그램(과 집 PC 시험 주소)만
-  var 허용 = ['https://work.taxpang.com', 'http://127.0.0.1:8732'];
+  var 허용 = ['https://work.taxpang.com', 'https://work.jeacc.com', 'http://127.0.0.1:8732'];
   var 받는곳 = new URLSearchParams(location.search).get('o') || '';
   if (허용.indexOf(받는곳) < 0) 받는곳 = '';
   var 끝 = false;
